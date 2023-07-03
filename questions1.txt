@@ -1,0 +1,97 @@
+1. Display the current date and time.
+2. Display calendar of the current month.
+3. Display current amount of free space on disk drive.
+4. Display the amount of free memory.
+5. How close the terminal emulator window?
+6. What mark is denote superuser?
+7. The directory we are standing in is called the current working directory. What command we use to print current working directory?
+8. What command we use to list the files and directories in the current working directory?
+11. With which command do you change  the working directory to your home directory?
+12. with which command do you change  the working directory to the previous working directory?
+13. List directory contents more detailed.
+14. Determine type of file2.txt.
+15. View content of system's user accounts.
+16. Which directory contain Linux kernel?
+18. List directory contents sorted in reverse order.
+19. Which dirctory contains all the system-wide configuration files?
+20. Which directory is used to install optional software?
+21. Which directory contains all the programs and support files used by regular users?
+22. Which directory contains log files, records of various system activity?
+23. How could we copy all the HTML files from one directory to another but copy only files that do not exist in the destination directory?
+24. The shell provides special characters to help you rapidly specify groups of filenames,that are called wildcards. How take all files?
+25. The shell provides special characters to help you rapidly specify groups of filenames,that are called wildcards. How take any file beginning with g?
+26. The shell provides special characters to help you rapidly specify groups of filenames,that are called wildcards. How take Any file beginning with b followed by any characters and ending with .txt?
+27. The shell provides special characters to help you rapidly specify groups of filenames,that are called wildcards. How take any file beginning with Data followed by exactly three characters?
+28. how to print all files and directories that first char is a, b or c?
+29.how to print all files and directories that first char is a, m or k?
+30. Write command to create dir1 directory.
+31. Write command to create three directories named dir1, dir2, and dir3.
+32. Write command to copy the single file or directory item1 to the file or directory item2.
+34. Write command to copy file1 to file2 that if file2 exists, the user is prompted before it is overwritten (hint:write wiht option).
+35. Write command to copy file1 and file2 into directory dir1.
+36. Write command to copy all the files in dir1 into dir2.
+37. Write command to copy the contents of directory dir1(not all the files) to directory dir2.
+38. Write command to move or rename the file or directory item1 to item2.
+39. Write command to move file1 to file2 if file2 exists, the user is prompted before it is overwritten.
+40. Write command to move file1 and file2 into directory dir1.
+41. If directory dir2 does not exist, create directory dir2 and move the contents of directory dir1 into dir2 and delete directory dir1. If directory dir2 does exist, move directory dir1 (and its contents) into directory dir2.
+42. Write command to delete file1 silently.
+43. Write command to delete file1 silently, that the user is prompted for confirmation before the deletion is performed.
+44. Write command to delete file1 and dir1 and its contents.
+45. Write command to delete file1 and dir1 and its contents and if either file1 or dir1 does not exist, rm will continue silently
+46. Write command to creates a hard link.
+47. Write command to creates a symbolic link.
+51. Create an alias named 'foo' for commands: cd /usr; ls; cd -
+53. Get cd command's documentation.
+54. Display ls's manual page.
+55. Remove an alias named 'foo'.
+56.  Write command to send the output of the ls command to the file output.txt instead of the screen.
+57. Write command to display the contents of the file output.txt.
+58. Write command to take /usr/bin directory, sorted it, and removes any duplicates.
+59. Write command to display the number of lines, words, and bytes contained in output.txt file.
+60. Write command to display the number of only lines, contained in output.txt file.
+61. Write command to find text patterns within files.Suppose we wanted to find all the files in our list of programs that had the word zip embedded in the name.
+62. how to prints the first 10 lines of aoutput.txt file?
+63. how to prints the prints the last 10 lines of aoutput.txt file?
+64. Display the text "I love C++" on standard output.
+65. List all documents which are started with 'S'.
+66. Do arithmetic expansion (2+2) and print result.
+67. Print numbers 1 to 10 with Brace expansion.
+68. Print name of the home directory of the named user.
+69. How we can view the contents of the command history list? 
+70. Which file holds informtion about user's password?
+71. Which command used for find out information about user identity?
+72. What uid number have superuser?
+73. Change foo.txt file's mode with octal notation so, that owners can read and write, groups can read and execute, world can write and execute.
+74. Which command allows an administrator to set up a configuration file called /etc/sudoers and define specific commands?
+75. Which command is used to start a shell as another user?
+76. Write command that used to see what privileges are granted by sudo.
+77. Which command is used to change the owner and group owner of a file or directory? 
+78. Which command is used to change password?
+79. Which command is used to set the default file permissions?
+80. Simplest form to view processes.
+81. How to view processes with even more information?
+82. Which command we use to see a more dynamic view of the machine’s activity.
+83. The process of shutting down the system involves the orderly termination of all the processes on the system. Tick one of them.
+84. Which command is used to see what stored in environment?
+85. Which command is used to display both the shell and environment variables?
+86. Which command is used to see aliases?
+87. Which command tells the shell to make the contents of PATH available to child processes of this shell?
+88. Open nano text editor with f5.txt.
+89. Which command is used for reread the modified file?
+90. How we can create a new file with vim, with name foo.txt.
+91. In which mode we can to add some text to our file in vim.
+92. Which ex command is using to switch from one file to the next.
+93. Which ex command is using to move back to the previous file.
+94. How will be command "apt-cache search emacs" in Red Hat style?
+95. How will be command "apt-get install emacs" in Red Hat style?
+96. How will be command "apt-get remove emacs" in Red Hat style?
+97. How will be command "apt-get update" in Red Hat style?
+98. How will be command "dpkg -i package_file" in Red Hat style?
+99. How will be command "dpkg -s emacs" in Red Hat style?
+100. How will be command "apt-cache show emacs" in Red Hat style?
+103. With which command we can examine a system's network interfaces and routing table?
+104. Which command is used to examine various network settings and statistics?
+105. Display the kernel's network routing table.
+108. Connect to a server at 192.168.1.2 with username test.
+109. Copy a document named document.txt from your home directory on the remote system, remote_sys, to the current working directory on your local system.

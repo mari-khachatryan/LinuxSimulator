@@ -1,0 +1,97 @@
+1. date,Date,DATE
+2. cal,Cal,CAL
+3. df,Df,DF
+4. free,Free,FREE
+5. exit,Exit,EXIT,Ctrl-D,CTRL-D,ControlD,ctrl-D,controld
+6. #
+7. pwd,PWD,Pwd
+8. ls,LS,Ls
+11. cd,CD,Cd
+12. cd -,cd-,CD-,Cd-,CD -,Cd -
+13. ls -l,Ls -l,LS -L,lS -l
+14. file file2.txt,File file2.txt,FILE file2.txt,FILE FILE2.TXT
+15. less /etc/passwd,cat /etc/passwd,vim /etc/passwd,Less /etc/passwd,LESS /etc/passwd,LESS /etc/passwd,Cat /etc/passwd,CAT /etc/passwd,Vim /etc/passwd,VIM /etc/passwd
+16. /boot,boot,Boot,BOOT,/Boot,/BOOT
+18. ls -lt --reverse, LS -LT --REVERSE, LS -lt --reverse, Ls -lt --reverse
+19. /etc,etc,/ETC,/Etc,/ETc,ETC,Etc,ETc
+20. /opt,opt,/OPT,/Opt,/OPt,OPT,Opt,OPt
+21. /usr,/USr,/USR,/Usr,usr,USR,Usr,USr
+22. /var/log,var/log,/Var/log,/VAR/LOG,/VAr/log,/VAR/log,/VAR/Log,/VAR/LOg
+23. cp -u *.html,cp -u *.html destination,cp -u *.html path,cp -u *.html ...
+24. *
+25. g*,*g
+26. b*.txt,*b.txt
+27. Data???,data???,DATA???
+28. ls [a-c]*
+29. ls [a,m,k]*
+30. mkdir dir1,Mkdir dir1
+31. mkdir dir1 dir2 dir3,mkdir dir1/dir2/dir3,Mkdir dir1 dir2 dir3
+32. cp item1 item2,cp item1/item2
+34. cp -i file1 file2,cp-i file1 file2,cp -i file1/file2
+35. cp file1 file2 dir1,cp file1/file2/dir1
+36. cp dir1/* dir2,cp *dir1/ dir2,cp */dir1 dir2,cp *dir1 dir2, cp dir1* dir2
+37. cp -r dir1 dir2,cp-r dir1 dir2,cp -r dir1/dir2
+38. mv item1 item2,mv item1/item2,Mv item1 item2,Mv item1/item2
+39. mv -i file1 file2,mv-i file1 file2,mv -i file1/file2,mv-i file1/file2,Mv -i file1 file2
+40. mv file1 file2 dir1,Mv file1 file2 dir1,mv file1/file2/dir1
+41. mv dir1 dir2,Mv dir1 dir2,mv dir1/dir2
+42. rm file1,Rm file1
+43. rm -i file1,Rm -i file1,rm-i file1
+44. rm -r file1 dir1,Rm -r file1 dir1,rm-r file1 dir1,rm -r file1/dir1
+45. rm -rf file1 dir1,Rm -rf file1 dir1,rm-rf file1 dir1,rm -rf file1/dir1
+46. ln file link,Ln file link,ln,Ln
+47. ln -s item link,ln -s,Ln -s
+51. alias foo='cd /usr; ls; cd -'
+53. help cd,Help cd,HELP cd,HELP CD
+54. man ls,MAN ls,MAN LS,Man ls
+55. unalias foo,Unalias foo,UNALIAS foo,UNALIAS FOO
+56. ls -l output.txt,ls output.txt
+57. cat output.txt,Cat output.txt
+58. ls /usr/bin | sort | uniq,ls /usr/bin|sort|uniq,Ls /usr/bin | sort | uniq
+59. wc output.txt,Wc output.txt
+60. wc -l output.txt,Wc -l output.txt,wc-l output.txt
+61. grep zip,Grep zip
+62. head 10 output.txt, head 10 output.txt
+63. tail 10 output.txt
+64. echo I love C++,ECHO I LOVE C++,Echo I love C++,ECHO I love C++,echo i love c++
+65. echo S*,Echo S*,echo s*,ECHO S*
+66. echo $((2+2))
+67. echo {1..10}
+68. echo ~
+69. history | less,history|less,history
+70. /etc/shadow,etc/shadow,/ETC/SHADOW,ETC/SHADOW
+71. id,ID,Id,iD
+72. 0,zero,Zero,ZERO
+73. chmod 653 foo.txt,CHMOD 653 foo.txt,Chmod 653 foo.txt
+74. sudo,SUDO,Sudo
+75. su,SU,Su
+76. sudo -l,Sudo -l,SUDO -l,SUDO -L
+77. chown,Chown,CHOWN
+78. passwd,PASSWD,Passwd
+79. umask,UMASK,Umask
+80. ps,Ps,PS
+81. ps aux,Ps aux,PS AUX
+82. top,Top,TOP
+83. halt,poweroff,reboot,shutdown
+84. printenv,Printenv,PRINTENV
+85. set,Set,SET
+86. alias,Alias,ALIAS
+87. export PATH,EXPORT PATH,export path,EXPORT path,EXPORT Path,Export Path,Export path,Export PATH
+88. nano f5.txt,Nano f5.txt,NANO f5.txt
+89. source,Source,SOURCE
+90. vim foo.txt,Vim foo.txt
+91. insert mode,INSERT,INSERT MODE,Insert Mode
+92. bn,BN,Bn
+93. bp,Bp,BP
+94. yum search emacs
+95. yum install emacs
+96. yum erase emacs
+97. yum update
+98. rpm -U package_file
+99. rpm -q emacs
+100. yum info emacs
+103. ip,ip a,Ip,IP,Ip a,IP a,IP A
+104. netstat,Netstat,NETSTAT,netstat -ie,Netstat -ie,NETSTAT -IE,NETSTAT -ie
+105. netstat -r,Netstat -r,NETSTAT -r,NETSTAT -R
+108. ssh test@192.168.1.2
+109. scp remote_sys:document.txt .
