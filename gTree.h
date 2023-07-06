@@ -47,31 +47,10 @@ public:
 };
 
 
-
-// class Node {
-// public:
-//     File data;
-//     Node* parent;
-//     std::vector<Node*> children;
-//     Node* getParent() const {
-//         return parent;
-//     }
-//     File getData() const {
-//         return data;
-//     }
-
-//     Node(const File& value) : data(value) {}
-//     ~Node() {
-//         for (Node* child : children) {
-//             delete child;
-//         }
-//     }
-// };
-
-
 class GeneralTree {
 public:
     GeneralTree();
+    GeneralTree(Node*);
     ~GeneralTree();
     File getRootData() const;
     Node* getRoot() const;
@@ -101,6 +80,7 @@ private:
 
 
 GeneralTree::GeneralTree() : root(nullptr) {}
+GeneralTree::GeneralTree(Node* r) : root{r} {}
 
 GeneralTree::~GeneralTree() {
     delete root;
@@ -162,6 +142,23 @@ Node* GeneralTree::findNode(Node* currentNode, const File& targetValue) {
 
     return nullptr;
 }
+
+// Node* GeneralTree::findNode(Node* currentNode, const File& targetDirectory) {
+//     if (currentNode == nullptr || currentNode->data.getName() == targetDirectory.getName()) {
+//         return currentNode;
+//     }
+
+//     for (Node* child : currentNode->children) {
+//         if (child->data.getIsDirectory()) {
+//             Node* result = findNode(child, targetDirectory);
+//             if (result != nullptr) {
+//                 return result;
+//             }
+//         }
+//     }
+
+//     return nullptr;
+// }
 
 Node* GeneralTree::findNode(const std::string& targetName) {
     return findNode(root, targetName);
