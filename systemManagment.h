@@ -16,8 +16,9 @@ namespace LinuxEmulator {
 
 class SystemManagement {
 public:
-    SystemManagement();
-    SystemManagement(const std::string& command, GeneralTree& gt);
+    // SystemManagement();
+    // SystemManagement(const std::string& command, GeneralTree& gt);
+    SystemManagement(GeneralTree& gt);
     Parsing getPars() const;
     bool getIsValid() const;
     void setPars(const Parsing&);
@@ -35,6 +36,7 @@ public:
     void setCurrentDirectory(const std::string&);
     Node* findNode(Node* currentNode, const File& targetValue) const;
     Node* findNode(const File& targetValue);
+    Node* findNode(Node* currentNode, const std::string& directoryPath) const;
     void addChild(Node* parentNode, Node* childNode);
     void commandExecute();
 
@@ -51,24 +53,20 @@ public:
     Node* dfsFindNode(Node* currentNode, const File& targetDir);
     void pwd();
     void mkdir(const std::string&);
+    void printColoredText(const std::string&, int);
 
 private:
     std::string currentDirectory;
     std::string previousDirectory;
-    GeneralTree gTree;
+    GeneralTree& gTree;
     Parsing pars;
     bool isValid;
 };
 
-SystemManagement::SystemManagement() : currentDirectory("/"), gTree() {}
-
-SystemManagement::SystemManagement(const std::string& command, GeneralTree& gt)
+SystemManagement::SystemManagement(GeneralTree& gt)
     : currentDirectory("/")
     , gTree(gt)
-    , pars(command)
 {
-    CommandValidator comValidator(pars);
-    isValid = comValidator.isValidCommand(pars);
     File rootDir("/", true);
     Node* rootNode = new Node(rootDir);
     rootNode->parent = nullptr;
@@ -88,6 +86,8 @@ bool SystemManagement::getIsValid() const {
 
 void SystemManagement::setPars(const Parsing& p) {
     pars = p;
+    CommandValidator comValidator(pars);
+    isValid = comValidator.isValidCommand(pars);
 }
 
 void SystemManagement::setIsValid(bool is) {
@@ -99,9 +99,9 @@ bool SystemManagement::createDirectory(const std::string& name) {
     File parentDirectory(currentDirectory, true);
 
     if (gTree.insert(newDirectory, parentDirectory)) {
-        return true; // Directory created successfully
+        return true; 
     } else {
-        return false; // Failed to create directory
+        return false; 
     }
 }
 
@@ -161,6 +161,26 @@ Node* SystemManagement::findNode(const File& targetValue) {
     return findNode(gTree.getRoot(), targetValue);
 }
 
+Node* SystemManagement::findNode(Node* currentNode, const std::string& directoryPath) const {
+    if (currentNode == nullptr)
+        return nullptr;
+
+    // Check if the current node matches the directory path
+    if (currentNode->getData().getName() == directoryPath)
+        return currentNode;
+
+    // Recursively search child nodes for the directory path
+    for (int i = 0; i < currentNode->getChildCount(); i++) {
+        Node* childNode = currentNode->getChild(i);
+        Node* resultNode = findNode(childNode, directoryPath);
+        if (resultNode != nullptr)
+            return resultNode;
+    }
+
+    // Directory not found in the current node's children
+    return nullptr;
+}
+
 void SystemManagement::addChild(Node* parentNode, Node* childNode) {
     if (parentNode != nullptr && childNode != nullptr)
         parentNode->addChild(childNode);
@@ -182,10 +202,8 @@ void SystemManagement::commandExecute() {
     } else if (command == "help") {
         help();
     } else if (command == "cd") {
-        //std::string arg = pars.getArguments();
         cd(arg[0]);
     } else if (command == "touch") {
-        //std::string arg = pars.getArguments();
         createFile(arg[0]);
     } else if (command == "mkdir") {
         // for(int i = 0; i < arg.size(); ++i) {
@@ -195,7 +213,6 @@ void SystemManagement::commandExecute() {
     } else if (command == "pwd") {
         pwd();
     } else if (command == "rm") {
-        //std::string arg = pars.getArguments();
         if (fileExists(arg[0]))
             removeFile(arg[0]);
         else if (directoryExists(arg[0]))
@@ -217,6 +234,15 @@ void SystemManagement::listDirectory(const std::string& directoryPath, std::ostr
     if (node != nullptr) {
         for (int i = 0; i < node->getChildCount(); i++) {
             File child = node->getChild(i)->getData();
+            // if(child.getIsDirectory()) {
+            //     std::string message = child.getName();
+            //     int color = 32;
+            //     printColoredText(message, color);
+            // } else {
+            //     std::string message = child.getName();
+            //     int color = 34;
+            //     printColoredText(message, color);
+            //}
             outputStream << child.getName() << std::endl;
         }
     }
@@ -286,24 +312,31 @@ void SystemManagement::help() {
     std::cout << "rm [file or directory] - Remove a file or directory" << std::endl;
 }
 
+
 void SystemManagement::cd(const std::string& directoryPath) {
-    if (directoryExists(directoryPath)) {
-        if (directoryPath == "..") {
-            if (currentDirectory != "/") {
-                size_t pos = currentDirectory.find_last_of('/');
+    if (directoryPath == "..") {
+        if (currentDirectory != "/") {
+            size_t pos = currentDirectory.find_last_of('/');
+            if (pos != std::string::npos) {
                 currentDirectory = currentDirectory.substr(0, pos);
                 if (currentDirectory.empty())
                     currentDirectory = "/";
+            } else {
+                currentDirectory = "/";
             }
-        } else if (directoryPath == ".") {
-            // Do nothing, current directory remains the same
-        } else {
-            currentDirectory = directoryPath;
         }
+    } else if (directoryPath == ".") {
+        // Do nothing, current directory remains the same
     } else {
-        std::cout << "Directory not found." << std::endl;
+        Node* targetNode = findNode(gTree.getRoot(), directoryPath);
+        if (targetNode != nullptr && targetNode->getData().getIsDirectory()) {
+            currentDirectory = directoryPath;
+        } else {
+            std::cout << "Directory not found." << std::endl;
+        }
     }
 }
+
 
 void SystemManagement::createFile(const std::string& filename) {
     File file(filename, false);
@@ -339,6 +372,17 @@ void SystemManagement::mkdir(const std::string& dirname) {
     } else {
         std::cout << "Failed to create directory." << std::endl;
     }
+}
+
+void SystemManagement::printColoredText(const std::string& text, int colorCode) {
+    std::cout << "\033[" << colorCode << "m" << text << "\033[0m";
+    // Red: 31
+    // Green: 32
+    // Yellow: 33
+    // Blue: 34
+    // Magenta: 35
+    // Cyan: 36
+    // White: 37
 }
 
 } // namespace LinuxEmulator
