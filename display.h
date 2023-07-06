@@ -22,15 +22,22 @@ public:
 	std::map<std::string, std::string> getRandomPairs(const std::map<std::string, std::string>&, int);
 	std::vector<std::string> split(const std::string&, char);
 	void printColoredText(const std::string& text, int colorCode);
+	std::string takePoint(const std::string& str);
+	void hideOutput();
 private:
+	GeneralTree gtree;
+	GeneralTree gtree1;
+	GeneralTree gtree2;
+    SystemManagement systemManagement;
 	SystemManagement smMy;
 	SystemManagement smOther;
 	int points;
 	std::map<std::string, std::vector<std::string>> finalView;
 };
 
-Display::Display() {
-	points = 0;
+Display::Display() : systemManagement(gtree), smMy(gtree1), smOther(gtree2) 
+{
+	points = 0; 
 }
 
 void Display::display() {
@@ -68,7 +75,6 @@ void Display::display() {
 						  }
 			continue;
 		} else if(numStr == "2") {
-			GeneralTree gt;
 			std::string username;
 	    	std::cout << "Input username: ";
 	    	std::getline(std::cin, username);
@@ -80,19 +86,19 @@ void Display::display() {
 					std::string command;
 					printColoredText(username, 32);
         			printColoredText("@hostname> ", 32);
-					//std::cout << "CommandLine > ";
 					std::getline(std::cin, command);
 					if(command == "exit") {
 						break;
 					} else if (command.empty()) {
 						continue;
 					} else {
-						SystemManagement sm(command, gt);
-						if(!sm.getIsValid()) {
+						Parsing com(command);
+						systemManagement.setPars(com);
+						if(!systemManagement.getIsValid()) {
 							std::cout << "Sory but command not valid!" << std::endl;
 							continue;
 						} else {
-							sm.commandExecute();
+							systemManagement.commandExecute();
 						}
 					}
 				}
@@ -100,6 +106,13 @@ void Display::display() {
 		} else if (numStr == "3"){
 			GeneralTree myGtree;
 			GeneralTree OtherGtree;
+			std::cout << "You have selected examMode, you are sure you want to proceed without testing the commands "<< std::endl;
+			char ch;
+			std::cout << "Are you sure y/n" << std::endl;
+			std::cin >> ch;
+			if(ch == 'n') {
+				continue;
+			}
 			std::cout << "!! If you want to log out from examMod please enter 'exit' !!" << std::endl;
 			Question q;
 			Answer a;
@@ -113,11 +126,9 @@ void Display::display() {
 				std::string question = pair.first; 
 		        std::string answer = pair.second;
 				++i;
-				size_t posOfPoint = question.find('.');
-    		    if(posOfPoint != std::string::npos) {
-	    			std::string s = question.substr(posOfPoint + 2);
-	    			question = s;
-	    		}
+				question = takePoint(question);
+				answer = takePoint(answer);
+	
 				std::cout << i << ". " << question << std::endl;
 				std::vector<std::string> trueAnswers = split(answer, ',');
 				while(true) {
@@ -135,27 +146,36 @@ void Display::display() {
 								flagTrue = true;
 							}
 						}
-						SystemManagement smMy(trueAnswers[0], myGtree);
+
+						Parsing comMy(trueAnswers[0]);
+						smMy.setPars(comMy);
 						if(flagTrue) {
-							SystemManagement smOther(command, OtherGtree);
+							Parsing comOther(command);
+							smOther.setPars(comOther);
 						}
-				
+
 						if(smMy.getIsValid()) {
+							hideOutput();
 							smMy.commandExecute();
 						} 
-								else {
-									std::cout << "Sorry but command not valid!" << std::endl;
-										break;
-								}
-					}
-					std::vector<std::string> finalAns;
-					finalAns.push_back(command);
-					finalAns.push_back(std::to_string(flagTrue));  
-					finalView[question] = finalAns;
+						if(smOther.getIsValid()) {
+							hideOutput();
+							smOther.commandExecute();
+						}
+						if(!(gtree1 == gtree2)) {
+							flagTrue = false;
+						}
+						std::vector<std::string> finalAns;
+						finalAns.push_back(command);
+						finalAns.push_back(trueAnswers[0]);
+						finalAns.push_back(std::to_string(flagTrue));  
+						finalView[question] = finalAns;
 
-					if(flagTrue) {
-						points += 10;
+						if(flagTrue) {
+							points += 10;
+						}
 					}
+					break;
 				}
 				if(i == 10) break;
 			}
@@ -170,25 +190,26 @@ void Display::display() {
 				for (const auto& pair : finalView) {
 			        std::cout << pair.first << std::endl;
 			        std::vector<std::string> v = pair.second;
-			        if(v[1] == "true") {
+			        if(v[2] == "true") {
 			        	std::string message = pair.second[0];
 			        	int color = 32;
 			        	printColoredText(message, color);
+			        	std::string message2 = pair.second[1];
+			        	color = 32;
+			        	message2 = "     - " + message2;
+ 			        	printColoredText(message2, color);
 			        	std::cout << std::endl;
 			        } else {
 			        	std::string message = pair.second[0];
-			        	int color = 31;
+			        	int color = 31;   //red
 			        	printColoredText(message, color);
+			        	std::string message2 = pair.second[1];
+			        	color = 32;
+			        	message2 = "     - " + message2;
+ 			        	printColoredText(message2, color);
 			        	std::cout << std::endl;
 			        }
 			    }
-	
-	// 			if(smMy.getGtree() == smOther.getGtree()) {
-	// 						points += 10;
-	// 					} else {
-	// 						smOther = smMy;
-	// 					}
-
 		} else if(numStr == "") {
 			std::cout << "> " << std::endl;
 			std::cin >> numStr;
@@ -234,6 +255,23 @@ void  Display::printColoredText(const std::string& text, int colorCode) {
 	// White: 37
 }
 
+std::string Display::takePoint(const std::string& str) {
+	size_t posOfPoint = str.find('.');
+	std::string s = "";
+    if(posOfPoint != std::string::npos) {
+		s = str.substr(posOfPoint + 2);
+	}
+	return s;
+}
+
+void Display::hideOutput() {
+    std::streambuf* originalOutputBuffer = std::cout.rdbuf();
+    std::ofstream nullDevice("/dev/null");
+    std::cout.rdbuf(nullDevice.rdbuf());
+
+    std::cout.rdbuf(originalOutputBuffer);
+
+}
 
 
 }  //namespace LinuxEmulator
