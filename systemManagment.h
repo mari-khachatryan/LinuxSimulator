@@ -16,8 +16,6 @@ namespace LinuxEmulator {
 
 class SystemManagement {
 public:
-    // SystemManagement();
-    // SystemManagement(const std::string& command, GeneralTree& gt);
     SystemManagement(GeneralTree& gt);
     Parsing getPars() const;
     bool getIsValid() const;
