@@ -28,7 +28,7 @@ private:
 	GeneralTree gtree;
 	GeneralTree gtree1;
 	GeneralTree gtree2;
-    SystemManagement systemManagement;
+        SystemManagement systemManagement;
 	SystemManagement smMy;
 	SystemManagement smOther;
 	int points;
